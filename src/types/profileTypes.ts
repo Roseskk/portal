@@ -4,7 +4,7 @@ export interface IProfileData {
 }
 
 export interface IProfile {
-    "id": 12,
-    "title": "Анимация",
-    "to_faculty": 3
+    "id": number,
+    "title": string,
+    "to_faculty": number
 }

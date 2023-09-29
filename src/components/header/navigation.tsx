@@ -3,11 +3,13 @@ import { NavLink } from "react-router-dom";
 import DropdownMenu from "../menu/dropDownMenu";
 import { Typography } from "@mui/material";
 import { MenuOutlined} from "@mui/icons-material";
+import {useMenuContext} from "../../hooks/useMenu";
 
 const Navigation: React.FC = () => {
+    const {activeMenu, setActiveMenu} = useMenuContext()
     return (
         <nav className="flex flex-wrap items-center justify-between p-4 mx-auto max-w-screen-xl">
-            <div className="flex items-center gap-4 p-2">
+            <div onMouseEnter={() => setActiveMenu(null)} className="flex items-center gap-4 p-2">
                 <NavLink className="underline font-bold" to="/">Главная</NavLink>
             </div>
             <div className="hidden md:flex items-center">
@@ -16,7 +18,7 @@ const Navigation: React.FC = () => {
                 <DropdownMenu buttonLabel="Ведомости" items={['Все ведомости']} />
                 <DropdownMenu buttonLabel="Пользователи" items={['Студенты', 'Преподаватели']} />
             </div>
-            <div className="flex">
+            <div onMouseEnter={() => setActiveMenu(null)} className="flex">
                 <Typography className="font-bold">Логин</Typography>
             </div>
             {/* Гамбургер-меню для мобильных устройств */}

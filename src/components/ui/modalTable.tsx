@@ -35,6 +35,7 @@ const ModalTable: React.FC<ModalTableProps> = ({ data, open, onClose }) => {
         subtitles = Object.keys(data[0])
     }
 
+
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="lg">
             <DialogTitle>Модальная таблица</DialogTitle>

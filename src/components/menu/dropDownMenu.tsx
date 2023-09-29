@@ -32,6 +32,13 @@ function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
         setActiveMenu(null);
     };
 
+    useEffect(() => {
+        if (activeMenu === 'default') {
+            console.log('default')
+            setActiveMenu(null)
+        }
+    },[activeMenu])
+
     return (
         <div ref={menuRef}>
             <Button
@@ -49,10 +56,14 @@ function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
                 {buttonLabel}
             </Button>
             <Menu
+                style={{
+                    position: 'static'
+                }}
                 id="dropdown-menu"
                 anchorEl={anchorEl}
                 open={activeMenu === buttonLabel}
-                onClose={handleMouseLeave}
+                // onClose={handleMouseLeave}
+                onMouseDownCapture={handleMouseLeave}
             >
                 {items.map((item, index) => (
                     <MenuItem key={index} onClick={() => handleModal(item)}>

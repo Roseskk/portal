@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/api/lessonType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/api/room.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/api/schedule.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/features/lessons/lessonTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/features/room/roomSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/features/schedule/scheduleSlice.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/lessonTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/roomTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/scheduleTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/db.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/navigation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/menu/dropDownMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/menu/dropDownMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/modalTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/modalTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/profileTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/profileTypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,12 +28,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -70,7 +91,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1695809456892</updated>
-      <workItem from="1695809458129" duration="26690000" />
+      <workItem from="1695809458129" duration="34025000" />
     </task>
     <servers />
   </component>
