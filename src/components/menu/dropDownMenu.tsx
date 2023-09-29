@@ -4,6 +4,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import {useModal} from "../../hooks/useModal";
 import {useMenuContext} from "../../hooks/useMenu";
+import {useNavigate} from "react-router-dom";
 
 interface DropdownMenuProps {
     buttonLabel: React.ReactNode;
@@ -11,6 +12,8 @@ interface DropdownMenuProps {
 }
 
 function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
+    const navigate = useNavigate()
+
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const menuRef = useRef<HTMLDivElement | null>(null);
     const {openModal} = useModal();
@@ -32,6 +35,21 @@ function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
         setActiveMenu(null);
     };
 
+    const handleMenuTab = (item: string) => {
+        if (item === 'Расписание на дату') {
+            navigate('/schedule')
+            return
+        }
+        handleModal(item)
+    }
+
+    useEffect(() => {
+        if (activeMenu === 'default') {
+            console.log('default')
+            setActiveMenu(null)
+        }
+    },[activeMenu])
+
     return (
         <div ref={menuRef}>
             <Button
@@ -49,13 +67,17 @@ function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
                 {buttonLabel}
             </Button>
             <Menu
+                style={{
+                    position: 'static'
+                }}
                 id="dropdown-menu"
                 anchorEl={anchorEl}
                 open={activeMenu === buttonLabel}
-                onClose={handleMouseLeave}
+                // onClose={handleMouseLeave}
+                onMouseDownCapture={handleMouseLeave}
             >
                 {items.map((item, index) => (
-                    <MenuItem key={index} onClick={() => handleModal(item)}>
+                    <MenuItem key={index} onClick={() => handleMenuTab(item)}>
                         {item}
                     </MenuItem>
                 ))}

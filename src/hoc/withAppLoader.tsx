@@ -3,6 +3,8 @@ import { useGetProfilesQuery } from "../redux/api/profile";
 import Loader from "../components/ui/loader";
 import {useGetFacultiesQuery} from "../redux/api/faculty";
 import {useGetGroupsQuery} from "../redux/api/group";
+import {useGetLessonTypesQuery} from "../redux/api/lessonType";
+import {useGetRoomsQuery} from "../redux/api/room";
 
 const withAppLoader = <P extends object>(WrappedComponent: ComponentType<P>): React.FC<P> => {
     return (props: P) => {
@@ -10,12 +12,20 @@ const withAppLoader = <P extends object>(WrappedComponent: ComponentType<P>): Re
         const {isSuccess: profileSuccess, isError: profileError} = useGetProfilesQuery('profile'); // Передаем undefined в качестве параметров запроса
         const {isSuccess: facultySuccess, isError: facultyError} = useGetFacultiesQuery('faculties')
         const {isSuccess: groupsSuccess, isError: groupsError} = useGetGroupsQuery('groups')
+        const {isSuccess: lessonTypesSuccess, isError: lessonTypesError} = useGetLessonTypesQuery('lessonTypes')
+        const {isSuccess: roomsSuccess, isError: roomsError} = useGetRoomsQuery('rooms')
 
         useEffect(() => {
-            if (profileSuccess && facultySuccess && groupsSuccess) {
+            if (profileSuccess && facultySuccess && groupsSuccess && lessonTypesSuccess && roomsSuccess) {
                 setLoading(false)
             }
-        }, [profileSuccess, facultySuccess, groupsSuccess]);
+        }, [
+            profileSuccess,
+            facultySuccess,
+            groupsSuccess,
+            lessonTypesSuccess,
+            roomsSuccess
+        ]);
 
         return (
             <>
