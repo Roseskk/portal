@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/tables/scheduleTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/features/schedule/selectors.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/rooms/freeRooms.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ui/paper/mainPaper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/db.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/scheduleTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/scheduleTypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -80,7 +80,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1695809456892</updated>
-      <workItem from="1695809458129" duration="40813000" />
+      <workItem from="1695809458129" duration="43370000" />
     </task>
     <servers />
   </component>

@@ -8,6 +8,9 @@ import {IGroup} from "../types/groupsType";
 import {ILesson} from "../types/lessonTypes";
 import {formatTimeFromTimestamp} from "../utility/transformers";
 import ScheduleTable from "../components/tables/scheduleTable";
+import CenteredBox from "../components/ui/paper/mainPaper";
+import FreeRooms from "../components/rooms/freeRooms";
+import {Typography} from "@mui/material";
 
 
 const ScheduleTime: React.FC = () => {
@@ -18,6 +21,7 @@ const ScheduleTime: React.FC = () => {
     const lessonTypes = useSelector((state: RootState) => state.lessonReducer.types)
 
     const [transformedSchedule, setTransformedSchedule] = useState<ISchedule[]>([])
+    const [freeRooms, setFreeRooms] = useState<IRoom[]>([])
 
     useEffect(() => {
         if (scheduleSuccess && Array.isArray(schedule) && Array.isArray(rooms) && Array.isArray(groups) && Array.isArray(lessonTypes)) {
@@ -38,13 +42,22 @@ const ScheduleTime: React.FC = () => {
                     type: lesson || null
                 }
             })
+
+            setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ISchedule) => r.room === item.id)))
             setTransformedSchedule(transformed)
         }
     },[scheduleSuccess])
 
+    // const freeRooms =
+
+    // console.log(rooms, schedule)
     return(
-        <div className={'max-w-screen-xl mx-auto'}>
-            <ScheduleTable schedule={transformedSchedule} />
+        <div className={'max-w-screen-xl mx-auto flex flex-col  gap-[20px]'}>
+            <FreeRooms freeRooms={freeRooms} />
+            <div>
+                <Typography className={'text-center !font-bold'}>Расписание</Typography>
+                <ScheduleTable schedule={transformedSchedule} />
+            </div>
         </div>
     )
 }
