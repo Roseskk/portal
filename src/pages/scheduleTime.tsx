@@ -7,6 +7,7 @@ import {ISchedule} from "../types/scheduleTypes";
 import {IGroup} from "../types/groupsType";
 import {ILesson} from "../types/lessonTypes";
 import {formatTimeFromTimestamp} from "../utility/transformers";
+import ScheduleTable from "../components/tables/scheduleTable";
 
 
 const ScheduleTime: React.FC = () => {
@@ -41,10 +42,9 @@ const ScheduleTime: React.FC = () => {
         }
     },[scheduleSuccess])
 
-    console.log(transformedSchedule)
     return(
-        <div>
-
+        <div className={'max-w-screen-xl mx-auto'}>
+            <ScheduleTable schedule={transformedSchedule} />
         </div>
     )
 }

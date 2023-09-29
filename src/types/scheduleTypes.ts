@@ -1,3 +1,6 @@
+import {IGroup} from "./groupsType";
+import {ILesson} from "./lessonTypes";
+import {IRoom} from "./roomTypes";
 
 
 export interface IScheduleData {
@@ -9,7 +12,7 @@ export interface ISchedule {
     timeEnd: number | string
     subject: string
     instructor: string
-    group: number | null
-    type: number |  null
-    room: number | null
+    group: number | null | IGroup
+    type: number |  null | ILesson
+    room: number | null | IRoom
 }
