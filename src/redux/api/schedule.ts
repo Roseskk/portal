@@ -9,9 +9,9 @@ export const scheduleApi = createApi({
     reducerPath: 'scheduleApi',
     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:5050'}),
     endpoints: (builder) => ({
-        getSchedule: builder.query<IScheduleData, IScheduleArgs>({
+        getSchedule: builder.query<IScheduleData, string>({
             query: (args) => {
-                const {date} = args
+                // const {date} = args
                 return {
                     url: `/schedule`
                 }

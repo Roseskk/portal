@@ -5,11 +5,11 @@ export interface IScheduleData {
 }
 
 export interface ISchedule {
-    timeStart: number
-    timeEnd: number
+    timeStart: number | string
+    timeEnd: number | string
     subject: string
     instructor: string
-    group: number
-    type: number
-    room: number
+    group: number | null
+    type: number |  null
+    room: number | null
 }
