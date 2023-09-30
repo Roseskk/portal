@@ -7,7 +7,7 @@ import {ISchedule} from "../types/scheduleTypes";
 import {IGroup} from "../types/groupsType";
 import {ILesson} from "../types/lessonTypes";
 import {formatTimeFromTimestamp} from "../utility/transformers";
-import ScheduleTable from "../components/tables/scheduleTable";
+import ScheduleTable from "../components/schedule/scheduleTable";
 import CenteredBox from "../components/ui/paper/mainPaper";
 import FreeRooms from "../components/rooms/freeRooms";
 import {Typography} from "@mui/material";
@@ -52,9 +52,9 @@ const ScheduleTime: React.FC = () => {
 
     // console.log(rooms, schedule)
     return(
-        <div className={'max-w-screen-xl mx-auto flex flex-col  gap-[20px]'}>
+        <div className={'max-w-screen-xl mx-auto flex flex-col  gap-[20px] px-[25px]'}>
             <FreeRooms freeRooms={freeRooms} />
-            <div>
+            <div className={'flex flex-col gap-[10px]'}>
                 <Typography className={'text-center !font-bold'}>Расписание</Typography>
                 <ScheduleTable schedule={transformedSchedule} />
             </div>
