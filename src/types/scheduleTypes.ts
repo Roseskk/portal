@@ -8,6 +8,7 @@ export interface IScheduleData {
 }
 
 export interface ISchedule {
+    id: number,
     timeStart: number | string
     timeEnd: number | string
     subject: string
