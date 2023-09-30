@@ -11,9 +11,12 @@ import ScheduleTable from "../components/schedule/scheduleTable";
 import CenteredBox from "../components/ui/paper/mainPaper";
 import FreeRooms from "../components/rooms/freeRooms";
 import {Typography} from "@mui/material";
+import {Outlet, useLocation} from "react-router-dom";
 
 
 const ScheduleTime: React.FC = () => {
+    const location = useLocation();
+
     const {isSuccess: scheduleSuccess, isError: scheduleError} = useGetScheduleQuery('schedule')
     const schedule = useSelector((state: RootState) => state.scheduleReducer.schedule)
     const rooms = useSelector((state: RootState) => state.roomReducer.rooms)
@@ -48,17 +51,23 @@ const ScheduleTime: React.FC = () => {
         }
     },[scheduleSuccess])
 
-    // const freeRooms =
+    const isCalendarPage = location.pathname.includes('/calendar');
 
     // console.log(rooms, schedule)
     return(
-        <div className={'max-w-screen-xl mx-auto flex flex-col  gap-[20px] px-[25px]'}>
-            <FreeRooms freeRooms={freeRooms} />
-            <div className={'flex flex-col gap-[10px]'}>
-                <Typography className={'text-center !font-bold'}>Расписание</Typography>
-                <ScheduleTable schedule={transformedSchedule} />
-            </div>
-        </div>
+        <>
+            {
+                isCalendarPage
+                ? <Outlet />
+                : <div className={'max-w-screen-xl mx-auto flex flex-col  gap-[20px] px-[25px]'}>
+                        <FreeRooms freeRooms={freeRooms} />
+                        <div className={'flex flex-col gap-[10px]'}>
+                            <Typography className={'text-center !font-bold'}>Расписание</Typography>
+                            <ScheduleTable schedule={transformedSchedule} />
+                        </div>
+                    </div>
+            }
+        </>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import Main from "./pages/main";
 import ScheduleTime from "./pages/scheduleTime";
+import ScheduleCalendar from "./pages/scheduleCalendar";
 
 interface Route {
     path: string;
@@ -24,6 +25,15 @@ export const routes: Route[] = [
         breadcrumb: 'Расписание',
         element: <ScheduleTime />,
         display: true,
-        title: 'Расписание'
+        title: 'Расписание',
+        children: [
+            {
+                path: `calendar`,
+                breadcrumb: 'Календарь',
+                element: <ScheduleCalendar  />,
+                display: true,
+                title: 'Календарь',
+            }
+        ]
     }
 ];
