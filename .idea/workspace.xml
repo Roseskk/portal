@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/mommentConfig.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/scheduleCalendar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/schedule/scheduleTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/schedule/scheduleTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/scheduleMobileTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tables/scheduleMobileTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/faculty.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/faculty.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/lessonType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/lessonType.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/profile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/departments.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/room.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/room.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/schedule.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/schedule.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/features/profile/profileSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/features/profile/profileSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/features/schedule/scheduleSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/features/schedule/scheduleSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/features/schedule/selectors.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/features/schedule/selectors.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/lessonTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/lessonTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/profileTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/departmentsTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/scheduleTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/scheduleTypes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,22 +50,29 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2VyXn2z4HwgctczQPG4oeNAL5yV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/ui" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="MTHome" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xxrose/Desktop/Новая папка 2/sklad&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/xxrose/Desktop/Новая папка 2/sklad/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/ui" />
@@ -87,7 +108,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1695809456892</updated>
-      <workItem from="1695809458129" duration="49427000" />
+      <workItem from="1695809458129" duration="51871000" />
+      <workItem from="1696341964685" duration="1102000" />
+      <workItem from="1700564663559" duration="2711000" />
+      <workItem from="1700567879842" duration="5547000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {IScheduleData} from "../../types/scheduleTypes";
+import {ILessonData} from "../../types/scheduleTypes";
 
 interface IScheduleArgs {
     date?: Date
@@ -7,13 +7,13 @@ interface IScheduleArgs {
 
 export const scheduleApi = createApi({
     reducerPath: 'scheduleApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:5050'}),
+    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:3000"}),
     endpoints: (builder) => ({
-        getSchedule: builder.query<IScheduleData, string>({
+        getSchedule: builder.query<ILessonData, string>({
             query: (args) => {
                 // const {date} = args
                 return {
-                    url: `/schedule`
+                    url: `/lessons/today`
                 }
             }
         })

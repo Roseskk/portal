@@ -1,11 +1,11 @@
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemText, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ISchedule } from '../../types/scheduleTypes';
+import {ILessonData} from '../../types/scheduleTypes';
 import {EventNote, Group, Person, Room, Schedule, Subject} from "@mui/icons-material";
 
 export interface ScheduleProps {
-    schedule: ISchedule[];
+    schedule: ILessonData;
 }
 
 const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
@@ -30,10 +30,10 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                         }}
                     >
                         <Typography>
-                            <Subject sx={{ marginRight: '4px' }} /> {item.subject}
+                            <Subject sx={{ marginRight: '4px' }} /> {item.discipline}
                         </Typography>
                         <Typography>
-                            <Schedule sx={{ marginRight: '4px' }} /> {item.timeStart}
+                            <Schedule sx={{ marginRight: '4px' }} /> {item.start_datetime}
                         </Typography>
                         <Typography>
                             <Room sx={{ marginRight: '4px' }} />{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}
@@ -52,7 +52,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Group sx={{ marginRight: '4px' }} />
-                        {!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}
+                        {/*{!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}*/}
                     </span>
                                     }
                                     sx={{
@@ -65,7 +65,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Person sx={{ marginRight: '4px' }} />
-                        {item.instructor}
+                        {item.teacher}
                     </span>
                                     }
                                 />
@@ -75,7 +75,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <EventNote sx={{ marginRight: '4px' }} />
-                        {!!item.type && typeof item.type === 'object' ? item.type.title : 'N/A'}
+                        {!!item.schedule && typeof item.schedule === 'object' ? item.schedule.title : 'N/A'}
                     </span>
                                     }
                                     sx={{
@@ -88,7 +88,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Schedule sx={{ marginRight: '4px' }} />
-                        {item.timeEnd}
+                        {item.end_datetime}
                     </span>
                                     }
                                 />

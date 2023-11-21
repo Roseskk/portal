@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {profileApi} from "../../api/profile";
-import {IProfileData} from "../../../types/profileTypes";
+import {profileApi} from "../../api/departments";
+import {IDepartmentsData} from "../../../types/departmentsTypes";
 
-const initialState: {profile: IProfileData | []} = {
+const initialState: {profile: IDepartmentsData | []} = {
     profile: []
 };
 

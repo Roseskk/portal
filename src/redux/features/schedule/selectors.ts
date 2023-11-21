@@ -1,4 +1,4 @@
-import {ISchedule} from "../../../types/scheduleTypes";
+// import {ISchedule} from "../../../types/scheduleTypes";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
 import {IRoom} from "../../../types/roomTypes";
@@ -7,7 +7,7 @@ import {ILesson} from "../../../types/lessonTypes";
 import {formatTimeFromTimestamp} from "../../../utility/transformers";
 
 
-export const getScheduleByDate =() => (state: ISchedule) => {
+export const getScheduleByDate =() => (state: any) => {
     // const schedule = useSelector((state: RootState) => state.scheduleReducer.schedule)
     // const rooms = useSelector((state: RootState) => state.roomReducer.rooms)
     // const groups = useSelector((state: RootState) => state.groupReducer.groups)

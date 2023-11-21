@@ -1,19 +1,36 @@
-import {IGroup} from "./groupsType";
-import {ILesson} from "./lessonTypes";
-import {IRoom} from "./roomTypes";
 
+export type ILessonData = ILesson[]
 
-export interface IScheduleData {
-    schedule: ISchedule[]
+export interface ILesson {
+    id: number
+    link: string
+    link2: string
+    start_datetime: string
+    end_datetime: string
+    theme: string
+    discipline: any
+    teacher: any
+    teacher2: any
+    room: Room
+    room2: any
+    schedule: ISchedule
+    lessonType: LessonType
+}
+
+export interface Room {
+    id: number
+    title: string
 }
 
 export interface ISchedule {
-    id: number,
-    timeStart: number | string
-    timeEnd: number | string
-    subject: string
-    instructor: string
-    group: number | null | IGroup
-    type: number |  null | ILesson
-    room: number | null | IRoom
+    id: number
+    title: string
+    start_date: string
+    end_date: string
+    archive: boolean
+}
+
+export interface LessonType {
+    id: number
+    title: string
 }

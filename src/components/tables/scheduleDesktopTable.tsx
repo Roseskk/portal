@@ -1,12 +1,14 @@
 import React from 'react';
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {ISchedule} from "../../types/scheduleTypes";
+import {ILessonData} from "../../types/scheduleTypes";
+import {it} from "node:test";
 
 export interface ScheduleDesktopTableProps {
-    schedule: ISchedule[]
+    schedule: ILessonData
 }
 
 const ScheduleDesktopTable: React.FC<ScheduleDesktopTableProps> = ({schedule}) => {
+    console.log(schedule)
     return(
         <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
             <Table sx={{ minWidth: 650 }}>
@@ -30,12 +32,13 @@ const ScheduleDesktopTable: React.FC<ScheduleDesktopTableProps> = ({schedule}) =
                                 cursor: 'pointer'
                             }}
                         >
-                            <TableCell>{item.timeStart}</TableCell>
-                            <TableCell>{item.timeEnd}</TableCell>
-                            <TableCell>{item.subject}</TableCell>
-                            <TableCell>{!!item.type && typeof item.type === 'object' ? item.type.title : 'N/A'}</TableCell>
-                            <TableCell>{item.instructor}</TableCell>
-                            <TableCell>{!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}</TableCell>
+                            <TableCell>{item.start_datetime}</TableCell>
+                            <TableCell>{item.end_datetime}</TableCell>
+                            <TableCell>{!!item.discipline && typeof item.discipline === 'object' ? item.discipline.title : 'N/A'}</TableCell>
+                            <TableCell>{!!item.schedule && typeof item.schedule === 'object' ? item.schedule.title : 'N/A'}</TableCell>
+                            <TableCell>{!!item.teacher && typeof item.teacher === 'object' ? item.teacher.id : 'N/A'}</TableCell>
+                            <TableCell>{'N/A'}</TableCell>
+                            {/*<TableCell>{!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}</TableCell>*/}
                             <TableCell>{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}</TableCell>
                         </TableRow>
                     ))}
