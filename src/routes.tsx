@@ -28,7 +28,7 @@ export const routes: Route[] = [
         title: 'Расписание',
         children: [
             {
-                path: `calendar`,
+                path: `calendar/:id`,
                 breadcrumb: 'Календарь',
                 element: <ScheduleCalendar  />,
                 display: true,

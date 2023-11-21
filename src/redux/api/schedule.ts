@@ -16,11 +16,19 @@ export const scheduleApi = createApi({
                     url: `/lessons/today`
                 }
             }
+        }),
+        getScheduleById: builder.query<ILessonData, string>({
+            query: (id) => {
+                return {
+                    url: `/lessons/schedule/${id}`
+                }
+            }
         })
     })
 })
 
 
 export const {
-    useGetScheduleQuery
+    useGetScheduleQuery,
+    useGetScheduleByIdQuery,
 } = scheduleApi
