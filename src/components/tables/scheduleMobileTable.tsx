@@ -3,6 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItem
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ILessonData} from '../../types/scheduleTypes';
 import {EventNote, Group, Person, Room, Schedule, Subject} from "@mui/icons-material";
+import {convertISOToTimeString} from "../../utility/transformers";
 
 export interface ScheduleProps {
     schedule: ILessonData;
@@ -17,27 +18,35 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls={`panel-${index}-content`}
                         id={`panel-${index}-header`}
-                        sx={{
-                            '& .MuiTypography-root': {
-                                display: 'flex',
-                                alignItems: 'center', // Выравнивание текста и иконок по вертикали
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                            },
-                            '& .MuiTypography-root + .MuiTypography-root': {
-                                marginLeft: '10px', // Отступ между элементами
-                            },
-                        }}
+                        // sx={{
+                        //     '& .MuiTypography-root': {
+                        //         padding: '0',
+                        //         display: 'grid',
+                        //         gridTemplateColumns: '1fr 1fr 1fr',
+                        //         gap: '10px',
+                        //         fontSize: '14px',
+                        //         fontWeight: 'bold',
+                        //     },
+                        //     '& .MuiTypography-root + .MuiTypography-root': {
+                        //         marginLeft: '10px', // Отступ между элементами
+                        //     },
+                        // }}
                     >
-                        <Typography>
-                            <Subject sx={{ marginRight: '4px' }} /> {item.discipline}
-                        </Typography>
-                        <Typography>
-                            <Schedule sx={{ marginRight: '4px' }} /> {item.start_datetime}
-                        </Typography>
-                        <Typography>
-                            <Room sx={{ marginRight: '4px' }} />{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}
-                        </Typography>
+                        <div className={'w-full grid sm:grid-cols-[200px_1fr_1fr] grid-cols-1'}>
+                            <div className="text-center">
+                                <Subject />
+                                <span>{item.discipline.title}</span>
+                            </div>
+                            <div className=" text-center">
+                                <Schedule />
+                                <span>{convertISOToTimeString(item.start_datetime)}</span>
+                            </div>
+                            <div className="text-center">
+                                <Room />
+                                <span>{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}</span>
+                            </div>
+                        </div>
+
                     </AccordionSummary>
                     <AccordionDetails
                         sx={{
@@ -65,7 +74,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Person sx={{ marginRight: '4px' }} />
-                        {item.teacher}
+                        {!!item.teacher && typeof  item.teacher === 'object' ? `${item.teacher.first_name} ${item.teacher.second_name}` : 'N/A'}
                     </span>
                                     }
                                 />
@@ -88,7 +97,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Schedule sx={{ marginRight: '4px' }} />
-                        {item.end_datetime}
+                        {convertISOToTimeString(item.end_datetime)}
                     </span>
                                     }
                                 />

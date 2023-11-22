@@ -1,89 +1,72 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import {useModal} from "../../hooks/useModal";
-import {useMenuContext} from "../../hooks/useMenu";
-import {useNavigate} from "react-router-dom";
+import { useModal } from '../../hooks/useModal';
 
 interface DropdownMenuProps {
     buttonLabel: React.ReactNode;
     items: string[];
 }
 
-function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
-    const navigate = useNavigate()
-
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const menuRef = useRef<HTMLDivElement | null>(null);
-    const {openModal} = useModal();
-    const {activeMenu, setActiveMenu} = useMenuContext()
-
-    const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-        setActiveMenu(buttonLabel as string);
-    };
-
-    const handleMouseLeave = () => {
-        setAnchorEl(null);
-        setActiveMenu(null);
-    };
-
-    const handleModal = (name: string) => {
-        openModal(name);
-        setAnchorEl(null);
-        setActiveMenu(null);
-    };
+function CustomDropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
+    const navigate = useNavigate();
+    const { openModal } = useModal();
 
     const handleMenuTab = (item: string) => {
         if (item === 'Расписание на дату') {
-            navigate('/schedule')
-            return
+            navigate('/schedule');
+            return;
         }
-        handleModal(item)
-    }
-
-    useEffect(() => {
-        if (activeMenu === 'default') {
-            console.log('default')
-            setActiveMenu(null)
-        }
-    },[activeMenu])
+        openModal(item);
+    };
 
     return (
-        <div ref={menuRef}>
-            <Button
-                aria-controls="dropdown-menu"
-                aria-haspopup="true"
-                onMouseEnter={handleMouseEnter}
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    style={{
+                        backgroundColor: '#f5f5f5',
+                        color: 'black',
+                        borderRadius: '8px',
+                        padding: '6px 12px',
+                        textTransform: 'none',
+                        transition: 'background-color 0.3s, box-shadow 0.3s',
+                        marginRight: '10px',
+                    }}
+                    disableRipple
+                    endIcon={null}
+                >
+                    {buttonLabel}
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
                 style={{
-                    backgroundColor: 'transparent',
-                    color: 'black',
-                    boxShadow: 'none',
+                    backgroundColor: '#ffffff',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
+                    padding: '5px',
                 }}
-                disableRipple
-                endIcon={null}
-            >
-                {buttonLabel}
-            </Button>
-            <Menu
-                style={{
-                    position: 'static'
-                }}
-                id="dropdown-menu"
-                anchorEl={anchorEl}
-                open={activeMenu === buttonLabel}
-                // onClose={handleMouseLeave}
-                onMouseDownCapture={handleMouseLeave}
             >
                 {items.map((item, index) => (
-                    <MenuItem key={index} onClick={() => handleMenuTab(item)}>
+                    <DropdownMenuItem
+                        key={index}
+                        onSelect={() => handleMenuTab(item)}
+                        style={{
+                            padding: '10px 15px', // отступы для каждого пункта
+                            cursor: 'pointer', // курсор в виде указателя
+                            fontSize: '16px', // размер шрифта
+                            color: '#333',
+                            borderBottom: index !== items.length - 1 ? '1px solid #eaeaea' : undefined, // разделительные линии между пунктами
+                        }}
+                    >
                         {item}
-                    </MenuItem>
+                    </DropdownMenuItem>
                 ))}
-            </Menu>
-        </div>
+            </DropdownMenuContent>
+
+        </DropdownMenu>
     );
 }
 
-export default DropdownMenu;
+export default CustomDropdownMenu;

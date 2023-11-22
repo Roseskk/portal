@@ -7,16 +7,25 @@ export function formatTimeFromTimestamp(timestamp: number): string {
 }
 
 export function convertISOToDate(isoString: any) {
-    // Преобразование в объект Date
     const date = new Date(isoString);
 
-    // Извлечение компонентов даты в UTC
-    const year = date.getUTCFullYear(); // Год
-    const month = date.getUTCMonth(); // Месяц (от 0 до 11)
-    const day = date.getUTCDate(); // День
-    const hours = date.getUTCHours(); // Часы
-    const minutes = date.getUTCMinutes(); // Минуты
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth();
+    const day = date.getUTCDate();
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
 
-    // Создание и возвращение новой даты
     return new Date(year, month, day, hours, minutes);
+}
+
+export function convertISOToTimeString(isoString: any) {
+    const date = new Date(isoString);
+
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+
+    const addLeadingZero = (number: any) => number < 10 ? `0${number}` : number;
+
+    // Форматируем часы и минуты с ведущим нулём при необходимости
+    return `${addLeadingZero(hours)}:${addLeadingZero(minutes)}`;
 }
