@@ -1,11 +1,12 @@
 import React from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemText, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ISchedule } from '../../types/scheduleTypes';
+import {ILessonData} from '../../types/scheduleTypes';
 import {EventNote, Group, Person, Room, Schedule, Subject} from "@mui/icons-material";
+import {convertISOToTimeString} from "../../utility/transformers";
 
 export interface ScheduleProps {
-    schedule: ISchedule[];
+    schedule: ILessonData;
 }
 
 const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
@@ -17,27 +18,35 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls={`panel-${index}-content`}
                         id={`panel-${index}-header`}
-                        sx={{
-                            '& .MuiTypography-root': {
-                                display: 'flex',
-                                alignItems: 'center', // Выравнивание текста и иконок по вертикали
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                            },
-                            '& .MuiTypography-root + .MuiTypography-root': {
-                                marginLeft: '10px', // Отступ между элементами
-                            },
-                        }}
+                        // sx={{
+                        //     '& .MuiTypography-root': {
+                        //         padding: '0',
+                        //         display: 'grid',
+                        //         gridTemplateColumns: '1fr 1fr 1fr',
+                        //         gap: '10px',
+                        //         fontSize: '14px',
+                        //         fontWeight: 'bold',
+                        //     },
+                        //     '& .MuiTypography-root + .MuiTypography-root': {
+                        //         marginLeft: '10px', // Отступ между элементами
+                        //     },
+                        // }}
                     >
-                        <Typography>
-                            <Subject sx={{ marginRight: '4px' }} /> {item.subject}
-                        </Typography>
-                        <Typography>
-                            <Schedule sx={{ marginRight: '4px' }} /> {item.timeStart}
-                        </Typography>
-                        <Typography>
-                            <Room sx={{ marginRight: '4px' }} />{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}
-                        </Typography>
+                        <div className={'w-full grid sm:grid-cols-[200px_1fr_1fr] grid-cols-1'}>
+                            <div className="text-center">
+                                <Subject />
+                                <span>{item.discipline.title}</span>
+                            </div>
+                            <div className=" text-center">
+                                <Schedule />
+                                <span>{convertISOToTimeString(item.start_datetime)}</span>
+                            </div>
+                            <div className="text-center">
+                                <Room />
+                                <span>{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}</span>
+                            </div>
+                        </div>
+
                     </AccordionSummary>
                     <AccordionDetails
                         sx={{
@@ -52,7 +61,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Group sx={{ marginRight: '4px' }} />
-                        {!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}
+                        {/*{!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}*/}
                     </span>
                                     }
                                     sx={{
@@ -65,7 +74,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Person sx={{ marginRight: '4px' }} />
-                        {item.instructor}
+                        {!!item.teacher && typeof  item.teacher === 'object' ? `${item.teacher.first_name} ${item.teacher.second_name}` : 'N/A'}
                     </span>
                                     }
                                 />
@@ -75,7 +84,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <EventNote sx={{ marginRight: '4px' }} />
-                        {!!item.type && typeof item.type === 'object' ? item.type.title : 'N/A'}
+                        {!!item.schedule && typeof item.schedule === 'object' ? item.schedule.title : 'N/A'}
                     </span>
                                     }
                                     sx={{
@@ -88,7 +97,7 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                                     primary={
                                         <span>
                         <Schedule sx={{ marginRight: '4px' }} />
-                        {item.timeEnd}
+                        {convertISOToTimeString(item.end_datetime)}
                     </span>
                                     }
                                 />

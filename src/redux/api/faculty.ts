@@ -4,10 +4,10 @@ import {IFacultyData} from "../../types/facultyTypes";
 
 export const facultyApi = createApi({
     reducerPath: 'facultyApi',
-    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5050"}),
+    baseQuery: fetchBaseQuery({baseUrl: "http://localhost:3000"}),
     endpoints: (builder) => ({
         getFaculties: builder.query<IFacultyData, string>({
-            query: () => `/faculty`
+            query: () => `/faculties`
         })
     })
 })

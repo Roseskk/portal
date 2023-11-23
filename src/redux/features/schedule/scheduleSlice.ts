@@ -1,9 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {scheduleApi} from "../../api/schedule";
-import {IScheduleData} from "../../../types/scheduleTypes";
+import {ILessonData} from "../../../types/scheduleTypes";
 
 
-const initialState: {schedule: IScheduleData | []} = {
+const initialState: {schedule: ILessonData | []} = {
     schedule: []
 }
 export const scheduleSlice = createSlice({

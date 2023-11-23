@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 //апи
-import {profileApi} from './api/profile'
+import {profileApi} from './api/departments'
 import {facultyApi} from "./api/faculty";
 import {groupApi} from "./api/group";
 import {scheduleApi} from "./api/schedule";

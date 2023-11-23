@@ -1,11 +1,11 @@
 import React from 'react';
-import { ISchedule } from '../../types/scheduleTypes';
+import {ILessonData} from '../../types/scheduleTypes';
 import {useResize} from "../../hooks/useResize";
 import ScheduleMobileTable from "../tables/scheduleMobileTable";
 import ScheduleDesktopTable from "../tables/scheduleDesktopTable";
 
 export interface ScheduleProps {
-    schedule: ISchedule[];
+    schedule: ILessonData;
 }
 
 const ScheduleTable: React.FC<ScheduleProps> = ({ schedule }) => {

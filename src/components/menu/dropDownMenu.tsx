@@ -1,89 +1,76 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useModal } from '../../hooks/useModal';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import {useModal} from "../../hooks/useModal";
-import {useMenuContext} from "../../hooks/useMenu";
-import {useNavigate} from "react-router-dom";
 
-interface DropdownMenuProps {
+interface CustomNavigationMenuProps {
     buttonLabel: React.ReactNode;
     items: string[];
 }
 
-function DropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
-    const navigate = useNavigate()
-
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const menuRef = useRef<HTMLDivElement | null>(null);
-    const {openModal} = useModal();
-    const {activeMenu, setActiveMenu} = useMenuContext()
-
-    const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-        setActiveMenu(buttonLabel as string);
-    };
-
-    const handleMouseLeave = () => {
-        setAnchorEl(null);
-        setActiveMenu(null);
-    };
-
-    const handleModal = (name: string) => {
-        openModal(name);
-        setAnchorEl(null);
-        setActiveMenu(null);
-    };
+function CustomNavigationMenu({ buttonLabel, items }: CustomNavigationMenuProps) {
+    const navigate = useNavigate();
+    const { openModal } = useModal();
 
     const handleMenuTab = (item: string) => {
         if (item === 'Расписание на дату') {
-            navigate('/schedule')
-            return
+            navigate('/schedule');
+            return;
         }
-        handleModal(item)
-    }
-
-    useEffect(() => {
-        if (activeMenu === 'default') {
-            console.log('default')
-            setActiveMenu(null)
-        }
-    },[activeMenu])
+        openModal(item);
+    };
 
     return (
-        <div ref={menuRef}>
-            <Button
-                aria-controls="dropdown-menu"
-                aria-haspopup="true"
-                onMouseEnter={handleMouseEnter}
-                style={{
-                    backgroundColor: 'transparent',
-                    color: 'black',
-                    boxShadow: 'none',
-                }}
-                disableRipple
-                endIcon={null}
-            >
-                {buttonLabel}
-            </Button>
-            <Menu
-                style={{
-                    position: 'static'
-                }}
-                id="dropdown-menu"
-                anchorEl={anchorEl}
-                open={activeMenu === buttonLabel}
-                // onClose={handleMouseLeave}
-                onMouseDownCapture={handleMouseLeave}
-            >
-                {items.map((item, index) => (
-                    <MenuItem key={index} onClick={() => handleMenuTab(item)}>
-                        {item}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </div>
+        <NavigationMenu.Root>
+            <NavigationMenu.List>
+                <NavigationMenu.Item>
+                    <NavigationMenu.Trigger asChild>
+                        <Button
+                            style={{
+                                backgroundColor: '#f5f5f5',
+                                color: 'black',
+                                borderRadius: '8px',
+                                padding: '6px 12px',
+                                textTransform: 'none',
+                                transition: 'background-color 0.3s, box-shadow 0.3s',
+                                marginRight: '10px',
+                            }}
+                            disableRipple
+                        >
+                            {buttonLabel}
+                        </Button>
+                    </NavigationMenu.Trigger>
+                    <NavigationMenu.Content
+                        style={{
+                            position: 'absolute',
+                            zIndex: 1000,
+                            backgroundColor: '#ffffff',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                            borderRadius: '8px',
+                            padding: '10px',
+                            minWidth: '200px'
+                        }}
+                    >
+                        {items.map((item, index) => (
+                            <div key={index}
+                                 style={{
+                                     padding: '8px 16px',
+                                     cursor: 'pointer',
+                                     fontSize: '16px',
+                                     color: '#333',
+                                     borderBottom: index !== items.length - 1 ? '1px solid #eaeaea' : 'none',
+                                 }}
+                                 onClick={() => handleMenuTab(item)}
+                            >
+                                {item}
+                            </div>
+                        ))}
+                    </NavigationMenu.Content>
+                </NavigationMenu.Item>
+            </NavigationMenu.List>
+        </NavigationMenu.Root>
     );
 }
 
-export default DropdownMenu;
+export default CustomNavigationMenu;
