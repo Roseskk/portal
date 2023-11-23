@@ -60,7 +60,9 @@ const ModalTable: React.FC<ModalTableProps> = ({ data, open, onClose }) => {
                                 <TableRow key={rowIndex}>
                                     {subtitles.map((field, cellIndex) => (
                                         <TableCell key={cellIndex}>
-                                            {item[field]}
+                                            {
+                                                typeof item[field] === 'object' ? item[field]?.title : item[field]
+                                            }
                                         </TableCell>
                                     ))}
                                 </TableRow>

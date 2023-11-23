@@ -27,15 +27,14 @@ const ScheduleTime: React.FC = () => {
     const [freeRooms, setFreeRooms] = useState<IRoom[]>([])
 
     useEffect(() => {
-        if (scheduleSuccess && Array.isArray(schedule)) {
+        if (scheduleSuccess && Array.isArray(schedule) && Array.isArray(rooms)) {
 
-            // setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ISchedule) => r.room === item.id)))
+            setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ILesson) => r.room.id === item.id)))
         }
     },[scheduleSuccess])
 
     const isCalendarPage = location.pathname.includes('/calendar');
 
-    // console.log(rooms, schedule)
     return(
         <>
             {

@@ -1,6 +1,4 @@
 
-
-
 export interface IGroupData {
     groups: IGroup[]
 }
@@ -8,6 +6,4 @@ export interface IGroupData {
 export interface IGroup {
     id: number
     title: string
-    year: number,
-    direction: string
 }

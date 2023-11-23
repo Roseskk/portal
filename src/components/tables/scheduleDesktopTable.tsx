@@ -37,9 +37,9 @@ const ScheduleDesktopTable: React.FC<ScheduleDesktopTableProps> = ({schedule}) =
                                 <TableCell>{start}</TableCell>
                                 <TableCell>{end}</TableCell>
                                 <TableCell>{!!item.discipline && typeof item.discipline === 'object' ? item.discipline.title : 'N/A'}</TableCell>
-                                <TableCell>{!!item.schedule && typeof item.schedule === 'object' ? item.schedule.title : 'N/A'}</TableCell>
+                                <TableCell>{!!item.lessonType && typeof item.lessonType === 'object' ? item.lessonType.title : 'N/A'}</TableCell>
                                 <TableCell>{!!item.teacher && typeof item.teacher === 'object' ? `${item.teacher.first_name} ${item.teacher.second_name}` : 'N/A'}</TableCell>
-                                <TableCell>{'N/A'}</TableCell>
+                                <TableCell>{!!item.schedule && typeof item.schedule === 'object' ? item.schedule.title : 'N/A'}</TableCell>
                                 {/*<TableCell>{!!item.group && typeof item.group === 'object' ? item.group.title : 'N/A'}</TableCell>*/}
                                 <TableCell>{!!item.room && typeof item.room === 'object' ? item.room.title : 'N/A'}</TableCell>
                             </TableRow>

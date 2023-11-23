@@ -11,18 +11,18 @@ const withAppLoader = <P extends object>(WrappedComponent: ComponentType<P>): Re
         const [isLoading, setLoading] = useState<boolean>(true);
         const {isSuccess: profileSuccess, isError: profileError} = useGetProfilesQuery('profile'); // Передаем undefined в качестве параметров запроса
         const {isSuccess: facultySuccess, isError: facultyError} = useGetFacultiesQuery('faculties')
-        // const {isSuccess: groupsSuccess, isError: groupsError} = useGetGroupsQuery('groups')
+        const {isSuccess: groupsSuccess, isError: groupsError} = useGetGroupsQuery('groups')
         const {isSuccess: lessonTypesSuccess, isError: lessonTypesError} = useGetLessonTypesQuery('lessonTypes')
         const {isSuccess: roomsSuccess, isError: roomsError} = useGetRoomsQuery('rooms')
 
         useEffect(() => {
-            if (profileSuccess && facultySuccess  && lessonTypesSuccess && roomsSuccess) {
+            if (profileSuccess && facultySuccess && groupsSuccess && lessonTypesSuccess && roomsSuccess) {
                 setLoading(false)
             }
         }, [
             profileSuccess,
             facultySuccess,
-            // groupsSuccess,
+            groupsSuccess,
             lessonTypesSuccess,
             roomsSuccess
         ]);
