@@ -1,15 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@radix-ui/react-dropdown-menu';
-import Button from '@mui/material/Button';
 import { useModal } from '../../hooks/useModal';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import Button from '@mui/material/Button';
 
-interface DropdownMenuProps {
+interface CustomNavigationMenuProps {
     buttonLabel: React.ReactNode;
     items: string[];
 }
 
-function CustomDropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
+function CustomNavigationMenu({ buttonLabel, items }: CustomNavigationMenuProps) {
     const navigate = useNavigate();
     const { openModal } = useModal();
 
@@ -22,51 +22,55 @@ function CustomDropdownMenu({ buttonLabel, items }: DropdownMenuProps) {
     };
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button
-                    style={{
-                        backgroundColor: '#f5f5f5',
-                        color: 'black',
-                        borderRadius: '8px',
-                        padding: '6px 12px',
-                        textTransform: 'none',
-                        transition: 'background-color 0.3s, box-shadow 0.3s',
-                        marginRight: '10px',
-                    }}
-                    disableRipple
-                    endIcon={null}
-                >
-                    {buttonLabel}
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-                style={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.15)',
-                    padding: '5px',
-                }}
-            >
-                {items.map((item, index) => (
-                    <DropdownMenuItem
-                        key={index}
-                        onSelect={() => handleMenuTab(item)}
+        <NavigationMenu.Root>
+            <NavigationMenu.List>
+                <NavigationMenu.Item>
+                    <NavigationMenu.Trigger asChild>
+                        <Button
+                            style={{
+                                backgroundColor: '#f5f5f5',
+                                color: 'black',
+                                borderRadius: '8px',
+                                padding: '6px 12px',
+                                textTransform: 'none',
+                                transition: 'background-color 0.3s, box-shadow 0.3s',
+                                marginRight: '10px',
+                            }}
+                            disableRipple
+                        >
+                            {buttonLabel}
+                        </Button>
+                    </NavigationMenu.Trigger>
+                    <NavigationMenu.Content
                         style={{
-                            padding: '10px 15px', // отступы для каждого пункта
-                            cursor: 'pointer', // курсор в виде указателя
-                            fontSize: '16px', // размер шрифта
-                            color: '#333',
-                            borderBottom: index !== items.length - 1 ? '1px solid #eaeaea' : undefined, // разделительные линии между пунктами
+                            position: 'absolute',
+                            zIndex: 1000,
+                            backgroundColor: '#ffffff',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                            borderRadius: '8px',
+                            padding: '10px',
+                            minWidth: '200px'
                         }}
                     >
-                        {item}
-                    </DropdownMenuItem>
-                ))}
-            </DropdownMenuContent>
-
-        </DropdownMenu>
+                        {items.map((item, index) => (
+                            <div key={index}
+                                 style={{
+                                     padding: '8px 16px',
+                                     cursor: 'pointer',
+                                     fontSize: '16px',
+                                     color: '#333',
+                                     borderBottom: index !== items.length - 1 ? '1px solid #eaeaea' : 'none',
+                                 }}
+                                 onClick={() => handleMenuTab(item)}
+                            >
+                                {item}
+                            </div>
+                        ))}
+                    </NavigationMenu.Content>
+                </NavigationMenu.Item>
+            </NavigationMenu.List>
+        </NavigationMenu.Root>
     );
 }
 
-export default CustomDropdownMenu;
+export default CustomNavigationMenu;
