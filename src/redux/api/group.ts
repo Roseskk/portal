@@ -4,7 +4,7 @@ import {IGroupData} from "../../types/groupsType";
 
 export const groupApi = createApi({
     reducerPath: 'groupApi',
-    baseQuery: fetchBaseQuery({baseUrl:"http://localhost:5050"}),
+    baseQuery: fetchBaseQuery({baseUrl:"http://localhost:3000"}),
     endpoints: (builder) => ({
         getGroups: builder.query<IGroupData, string>({
             query: () => `/groups`

@@ -6,10 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/menu/dropDownMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/menu/dropDownMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/rooms/freeRooms.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/rooms/freeRooms.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tables/scheduleMobileTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tables/scheduleMobileTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/modalTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/modalTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/hoc/withAppLoader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/scheduleTime.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/redux/api/group.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/api/group.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/groupsType.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/groupsType.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utility/transformers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/transformers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/your-json-file.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +107,7 @@
       <workItem from="1696341964685" duration="1102000" />
       <workItem from="1700564663559" duration="2711000" />
       <workItem from="1700567879842" duration="8650000" />
-      <workItem from="1700594070100" duration="13226000" />
+      <workItem from="1700594070100" duration="15729000" />
     </task>
     <servers />
   </component>
