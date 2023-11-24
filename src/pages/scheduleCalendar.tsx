@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import {Calendar, momentLocalizer, SlotInfo, View} from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
@@ -9,6 +9,9 @@ import {useParams} from "react-router-dom";
 import {useGetScheduleByIdQuery} from "../redux/api/schedule";
 import {ILesson, ILessonData} from "../types/scheduleTypes";
 import {convertISOToDate} from "../utility/transformers";
+import CustomForm from "../components/ui/form/customForm";
+import {calendarFormSchema} from "../schemas/calendarFormSchema";
+import HelperChildComponent from "../helpers/helperChildComponent";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -33,8 +36,22 @@ const messages = {
 const MyCalendar: React.FC = () => {
     const {id}  = useParams()
     const {data, isLoading, isSuccess, isError} = useGetScheduleByIdQuery(id!)
-    // console.log(data)
+
     const [events, setEvents] = useState<Event[] | []>([]);
+    const [view, setView] = useState('month')
+    const [date, setDate] = useState(new Date())
+    const [isOpen, setOpen] = useState(false)
+
+    const handleSelectSlot = (slotInfo: SlotInfo) => {
+            setView('day');
+            setDate(slotInfo.start)
+    }
+
+    const handleEventSelect = (event: Object) => {
+        setOpen(true)
+        console.log(event)
+    }
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -66,14 +83,45 @@ const MyCalendar: React.FC = () => {
     return (
         <div className={'h-[500px] mt-[25px]'}>
             <DragAndDropCalendar
+                view={view as View}
+                onView={(newView) => setView(newView)}
                 localizer={localizer}
                 events={events}
-                defaultDate={new Date()}
+                date={date}
                 defaultView="month"
                 onEventDrop={onEventDrop}
                 messages={messages}
                 style={{height: '100vh'}}
+                onSelectSlot={(info) => handleSelectSlot(info)}
+                onSelectEvent={(e) => handleEventSelect(e)}
+                selectable
             />
+            <HelperChildComponent
+                displayValue={isOpen}
+                handleOut={() => setOpen(false)}
+            >
+                <CustomForm
+                    initialValues={{
+                        id: '',
+                        discipline: '',
+                        teacher: '',
+                        room: '',
+                        link: '',
+                        edu_type: '',
+                        time: ''
+                    }}
+                    internalizationValues={{
+                        id: 'Код',
+                        discipline: 'Дисциплина',
+                        teacher: 'Преподаватель',
+                        room: 'Аудитория',
+                        link: 'Ссылка',
+                        edu_type: 'Тип урока',
+                        time: 'Время'
+                    }}
+                    schema={calendarFormSchema}
+                />
+            </HelperChildComponent>
         </div>
     );
 };

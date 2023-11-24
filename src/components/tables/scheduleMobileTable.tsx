@@ -18,19 +18,6 @@ const MobileTable: React.FC<ScheduleProps> = ({ schedule }) => {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls={`panel-${index}-content`}
                         id={`panel-${index}-header`}
-                        // sx={{
-                        //     '& .MuiTypography-root': {
-                        //         padding: '0',
-                        //         display: 'grid',
-                        //         gridTemplateColumns: '1fr 1fr 1fr',
-                        //         gap: '10px',
-                        //         fontSize: '14px',
-                        //         fontWeight: 'bold',
-                        //     },
-                        //     '& .MuiTypography-root + .MuiTypography-root': {
-                        //         marginLeft: '10px', // Отступ между элементами
-                        //     },
-                        // }}
                     >
                         <div className={'w-full grid sm:grid-cols-[200px_1fr_1fr] grid-cols-1'}>
                             <div className="text-center">
