@@ -4,6 +4,6 @@ export interface IRoomData {
 }
 
 export interface IRoom {
-    "id": number,
-    "title": string,
+    id: number,
+    title: string,
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, Formik} from "formik";
 import CustomInput from "./customInput";
 import CustomButton from "./CustomButton";
+import CustomSelect from "./customSelect";
 
 interface ICustomFormProps {
     initialValues:{
@@ -11,10 +12,24 @@ interface ICustomFormProps {
     internalizationValues: {
         [key: string]: string
     },
+    type: {
+        [key: string]: string
+    },
+    selectOptions: {
+        [key: string]: { label: string; value: string }[];
+    };
     formClass?: string
 }
 
-const CustomForm: React.FC<ICustomFormProps> = ({initialValues, schema, internalizationValues, formClass}) => {
+const CustomForm: React.FC<ICustomFormProps> =
+    ({
+        initialValues,
+        schema,
+        internalizationValues,
+        formClass,
+        type,
+        selectOptions
+     }) => {
     return(
         <Formik
             initialValues={initialValues}
@@ -30,7 +45,14 @@ const CustomForm: React.FC<ICustomFormProps> = ({initialValues, schema, internal
                     {
                         Object.entries(initialValues).map(([name, value]) => {
                             return(
-                                <CustomInput label={internalizationValues[name]} name={name} />
+                                <>
+                                    {
+                                        type[name] === 'select' && <CustomSelect label={internalizationValues[name]} name={name} options={selectOptions[name]} />
+                                    }
+                                    {
+                                        type[name] === 'text' && <CustomInput label={internalizationValues[name]} name={name} />
+                                    }
+                                </>
                             )
                         })
                     }

@@ -12,6 +12,9 @@ import {convertISOToDate} from "../utility/transformers";
 import CustomForm from "../components/ui/form/customForm";
 import {calendarFormSchema} from "../schemas/calendarFormSchema";
 import HelperChildComponent from "../helpers/helperChildComponent";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store";
+import {IRoom} from "../types/roomTypes";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -21,6 +24,10 @@ interface Event {
     title: string;
     start: Date;
     end: Date;
+}
+
+interface IFormikEventProps extends Event {
+    lesson: ILesson
 }
 
 const messages = {
@@ -37,19 +44,58 @@ const MyCalendar: React.FC = () => {
     const {id}  = useParams()
     const {data, isLoading, isSuccess, isError} = useGetScheduleByIdQuery(id!)
 
+    const roomsSelector = useSelector((state: RootState) => state.roomReducer.rooms)
+    const lessonTypesSelector = useSelector((state: RootState) => state.lessonReducer.types)
+
+    console.log(roomsSelector, lessonTypesSelector)
+
     const [events, setEvents] = useState<Event[] | []>([]);
     const [view, setView] = useState('month')
     const [date, setDate] = useState(new Date())
     const [isOpen, setOpen] = useState(false)
+    const [initialFormikValue, setInitialFormikValue] = useState<any>({
+        id: null,
+        discipline: {
+            id: null,
+            title: ''
+        },
+        teacher:{
+            id: null,
+            title: ''
+        },
+        room: {
+            id: null,
+            title: ''
+        },
+        link: '',
+        lessonType: {
+            id: null,
+            title: ''
+        },
+        start_datetime: '',
+        end_datetime: ''
+    })
 
     const handleSelectSlot = (slotInfo: SlotInfo) => {
-            setView('day');
-            setDate(slotInfo.start)
+        setView('day');
+        setDate(slotInfo.start)
+
     }
 
-    const handleEventSelect = (event: Object) => {
+    const handleEventSelect = (event: IFormikEventProps ) => {
+        const {lesson} = event
+        const {id, discipline, teacher, room, link, lessonType, start_datetime, end_datetime } = lesson
         setOpen(true)
-        console.log(event)
+        setInitialFormikValue({
+            id,
+            discipline,
+            teacher,
+            room,
+            link,
+            lessonType,
+            start_datetime,
+            end_datetime
+        })
     }
 
 
@@ -62,7 +108,10 @@ const MyCalendar: React.FC = () => {
                     id: i.id,
                     title: i.discipline.title,
                     start: startDate,
-                    end: endDate
+                    end: endDate,
+                    lesson: {
+                        ...i
+                    }
                 }
             })
             setEvents(mappedData)
@@ -93,7 +142,7 @@ const MyCalendar: React.FC = () => {
                 messages={messages}
                 style={{height: '100vh'}}
                 onSelectSlot={(info) => handleSelectSlot(info)}
-                onSelectEvent={(e) => handleEventSelect(e)}
+                onSelectEvent={(e) => handleEventSelect(e as IFormikEventProps)}
                 selectable
             />
             <HelperChildComponent
@@ -101,23 +150,38 @@ const MyCalendar: React.FC = () => {
                 handleOut={() => setOpen(false)}
             >
                 <CustomForm
-                    initialValues={{
-                        id: '',
-                        discipline: '',
-                        teacher: '',
-                        room: '',
-                        link: '',
-                        edu_type: '',
-                        time: ''
-                    }}
+                    initialValues={initialFormikValue}
                     internalizationValues={{
                         id: 'Код',
                         discipline: 'Дисциплина',
                         teacher: 'Преподаватель',
                         room: 'Аудитория',
                         link: 'Ссылка',
-                        edu_type: 'Тип урока',
-                        time: 'Время'
+                        lessonType: 'Тип урока',
+                        start_datetime: 'Начало',
+                        end_datetime: 'Конец'
+                    }}
+                    type={{
+                        id: 'text',
+                        discipline: 'select',
+                        teacher: 'select',
+                        room: 'select',
+                        link: 'text',
+                        lessonType: 'select',
+                        start_datetime: 'text',
+                        end_datetime: 'text'
+                    }}
+                    selectOptions={{
+                        discipline: [{value: '123', label: '123'}],
+                        teacher: [{value: '123', label: '123'}],
+                        room: Array.isArray(roomsSelector) ? roomsSelector.map((room: IRoom) => ({
+                            value: room.id.toString(),
+                            label: room.title
+                        })) : [{value: '0', label: 'Нет комнат'}],
+                        lessonType: Array.isArray(lessonTypesSelector) ? lessonTypesSelector.map((type : IRoom) => ({
+                            value: type.id.toString(),
+                            label: type.title
+                        })) : [{value: '0', label: 'Нет комнат'}],
                     }}
                     schema={calendarFormSchema}
                 />
