@@ -17,6 +17,7 @@ import {RootState} from "../redux/store";
 import {IRoom} from "../types/roomTypes";
 import {ITeacher} from "../types/teacherTypes";
 import {IDiscipline} from "../types/disciplinesType";
+import {FormikContextType, useFormikContext} from "formik";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -139,6 +140,21 @@ const MyCalendar: React.FC = () => {
         setEvents(updatedEvents);
     };
 
+    const handleRecordForm = (values: { [key: string]: any }, setSubmitting: (isSubmitting: boolean) => void) => {
+        console.log('submit');
+        // formik?.submitForm()
+        //     .then(() => {
+        //         console.log('123')
+                // formik?.validateForm().then((err) => {
+                //     if (Object.keys(err).length === 0) {
+                //         console.log('Validation done')
+                //     } else {
+                //         console.log('Invalid')
+                //     }
+                // })
+            // })
+    }
+
     if (isLoading) {
         return <div>Loading....</div>
     }
@@ -165,6 +181,7 @@ const MyCalendar: React.FC = () => {
                 handleOut={() => setOpen(false)}
             >
                 <CustomForm
+                    onSubmit={(values, { setSubmitting }) => handleRecordForm(values, setSubmitting)}
                     formName="Редактирование Записи"
                     key={initialFormikValue.id || 'new'}
                     initialValues={initialFormikValue}

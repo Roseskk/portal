@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/form/customSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/form/customSelect.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/form/CustomButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/form/CustomButton.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/form/customForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/form/customForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/scheduleCalendar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/scheduleCalendar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schemas/calendarFormSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schemas/calendarFormSchema.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,7 @@
       <workItem from="1700564663559" duration="2711000" />
       <workItem from="1700567879842" duration="8650000" />
       <workItem from="1700594070100" duration="34084000" />
-      <workItem from="1700936790988" duration="8240000" />
+      <workItem from="1700936790988" duration="11217000" />
     </task>
     <servers />
   </component>
