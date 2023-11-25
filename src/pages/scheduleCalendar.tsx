@@ -57,11 +57,23 @@ const MyCalendar: React.FC = () => {
     const [isOpen, setOpen] = useState(false)
     const [initialFormikValue, setInitialFormikValue] = useState<any>({
         id: '',
-        discipline: '',
-        teacher: '',
-        room: '',
+        discipline: {
+            value: '',
+            label: ''
+        },
+        teacher: {
+            value: '',
+            label: ''
+        },
+        room: {
+            value: '',
+            label: ''
+        },
         link: '',
-        lessonType: '',
+        lessonType: {
+            value: '',
+            label: ''
+        },
         start_datetime: '',
         end_datetime: ''
     })
@@ -78,11 +90,23 @@ const MyCalendar: React.FC = () => {
         setOpen(true)
         setInitialFormikValue({
             id: id.toString(),
-            discipline,
-            teacher,
-            room,
+            discipline: {
+                value: discipline.id.toString(),
+                label: discipline.title
+            },
+            teacher: {
+                value: teacher.id.toString(),
+                label: teacher.first_name
+            },
+            room: {
+                value: room.id.toString(),
+                label: room.title
+            },
             link,
-            lessonType,
+            lessonType: {
+                value: lessonType.id.toString(),
+                label: lessonType.title
+            },
             start_datetime,
             end_datetime
         })
@@ -141,7 +165,7 @@ const MyCalendar: React.FC = () => {
                 handleOut={() => setOpen(false)}
             >
                 <CustomForm
-                    formName="Редактирование Урока"
+                    formName="Редактирование Записи"
                     key={initialFormikValue.id || 'new'}
                     initialValues={initialFormikValue}
                     internalizationValues={{
