@@ -15,7 +15,7 @@ export const calendarFormSchema = yup.object().shape({
         value: yup.string(),
         label: yup.string()
     }),
-    link: yup.string().required('Это обязательное поле'),
+    link: yup.string(),
     lessonType: yup.object().shape({
         value: yup.string(),
         label: yup.string()

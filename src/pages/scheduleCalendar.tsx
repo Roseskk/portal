@@ -142,17 +142,7 @@ const MyCalendar: React.FC = () => {
 
     const handleRecordForm = (values: { [key: string]: any }, setSubmitting: (isSubmitting: boolean) => void) => {
         console.log('submit');
-        // formik?.submitForm()
-        //     .then(() => {
-        //         console.log('123')
-                // formik?.validateForm().then((err) => {
-                //     if (Object.keys(err).length === 0) {
-                //         console.log('Validation done')
-                //     } else {
-                //         console.log('Invalid')
-                //     }
-                // })
-            // })
+        setSubmitting(false)
     }
 
     if (isLoading) {
