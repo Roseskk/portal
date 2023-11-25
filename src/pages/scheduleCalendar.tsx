@@ -7,7 +7,7 @@ import moment from 'moment';
 import 'moment/locale/ru';
 import {useParams} from "react-router-dom";
 import {useGetScheduleByIdQuery} from "../redux/api/schedule";
-import {ILesson, ILessonData} from "../types/scheduleTypes";
+import {ILesson} from "../types/scheduleTypes";
 import {convertISOToDate} from "../utility/transformers";
 import CustomForm from "../components/ui/form/customForm";
 import {calendarFormSchema} from "../schemas/calendarFormSchema";
@@ -15,6 +15,8 @@ import HelperChildComponent from "../helpers/helperChildComponent";
 import {useSelector} from "react-redux";
 import {RootState} from "../redux/store";
 import {IRoom} from "../types/roomTypes";
+import {ITeacher} from "../types/teacherTypes";
+import {IDiscipline} from "../types/disciplinesType";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -46,32 +48,20 @@ const MyCalendar: React.FC = () => {
 
     const roomsSelector = useSelector((state: RootState) => state.roomReducer.rooms)
     const lessonTypesSelector = useSelector((state: RootState) => state.lessonReducer.types)
-
-    console.log(roomsSelector, lessonTypesSelector)
+    const teachersSelector = useSelector((state: RootState) => state.teacherReducer.teachers)
+    const disciplinesSelector = useSelector((state: RootState) => state.disciplineReducer.disciplines)
 
     const [events, setEvents] = useState<Event[] | []>([]);
     const [view, setView] = useState('month')
     const [date, setDate] = useState(new Date())
     const [isOpen, setOpen] = useState(false)
     const [initialFormikValue, setInitialFormikValue] = useState<any>({
-        id: null,
-        discipline: {
-            id: null,
-            title: ''
-        },
-        teacher:{
-            id: null,
-            title: ''
-        },
-        room: {
-            id: null,
-            title: ''
-        },
+        id: '',
+        discipline: '',
+        teacher: '',
+        room: '',
         link: '',
-        lessonType: {
-            id: null,
-            title: ''
-        },
+        lessonType: '',
         start_datetime: '',
         end_datetime: ''
     })
@@ -87,7 +77,7 @@ const MyCalendar: React.FC = () => {
         const {id, discipline, teacher, room, link, lessonType, start_datetime, end_datetime } = lesson
         setOpen(true)
         setInitialFormikValue({
-            id,
+            id: id.toString(),
             discipline,
             teacher,
             room,
@@ -137,6 +127,7 @@ const MyCalendar: React.FC = () => {
                 localizer={localizer}
                 events={events}
                 date={date}
+                onNavigate={(date) => setDate(date)}
                 defaultView="month"
                 onEventDrop={onEventDrop}
                 messages={messages}
@@ -150,6 +141,8 @@ const MyCalendar: React.FC = () => {
                 handleOut={() => setOpen(false)}
             >
                 <CustomForm
+                    formName="Редактирование Урока"
+                    key={initialFormikValue.id || 'new'}
                     initialValues={initialFormikValue}
                     internalizationValues={{
                         id: 'Код',
@@ -172,8 +165,14 @@ const MyCalendar: React.FC = () => {
                         end_datetime: 'text'
                     }}
                     selectOptions={{
-                        discipline: [{value: '123', label: '123'}],
-                        teacher: [{value: '123', label: '123'}],
+                        discipline: Array.isArray(disciplinesSelector) ? disciplinesSelector.map((discipline: IDiscipline) => ({
+                            value: discipline.id.toString(),
+                            label: discipline.title
+                        })) : [{value: '0', label: 'Нет дисциплин'}],
+                        teacher: Array.isArray(teachersSelector) ? teachersSelector.map((teacher: ITeacher) => ({
+                            value: teacher.id.toString(),
+                            label: `${teacher.second_name} ${teacher.first_name} ${teacher.middle_name}`
+                        })) : [{value: '0', label: 'Нет учителей'}],
                         room: Array.isArray(roomsSelector) ? roomsSelector.map((room: IRoom) => ({
                             value: room.id.toString(),
                             label: room.title
@@ -181,7 +180,7 @@ const MyCalendar: React.FC = () => {
                         lessonType: Array.isArray(lessonTypesSelector) ? lessonTypesSelector.map((type : IRoom) => ({
                             value: type.id.toString(),
                             label: type.title
-                        })) : [{value: '0', label: 'Нет комнат'}],
+                        })) : [{value: '0', label: 'Нет типов'}],
                     }}
                     schema={calendarFormSchema}
                 />

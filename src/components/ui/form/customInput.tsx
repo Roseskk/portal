@@ -20,6 +20,7 @@ const CustomInput: React.FC<CustomInputProps> = ({label, ...props}) => {
                     className={meta.touched && meta.error ? 'text-red-500 ' : ''}>{meta.touched && meta.error ? meta.error : ''}</span>
             </div>
             <input
+                disabled={field.name === 'id'}
                 className={meta.touched && meta.error ? 'outline-red-400 p-2 rounded ' : ' text-black p-2 rounded'} {...field} {...props} />
         </div>
     )

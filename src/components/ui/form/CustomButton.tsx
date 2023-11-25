@@ -8,7 +8,7 @@ interface ICustomButtonProps {
 
 const CustomButton: React.FC<ICustomButtonProps> = ({label, ...props}) => {
     return(
-        <button className={`${props.btnClass ? props.btnClass : 'p-4 rounded text-center text-white font-bold bg-black '}`} onClick={props.handleClick}>{label}</button>
+        <button className={`${props.btnClass ? props.btnClass : 'p-4 rounded text-center text-white font-bold bg-black mt-5 '}`} onClick={props.handleClick}>{label}</button>
     )
 }
 

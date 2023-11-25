@@ -9,10 +9,6 @@ interface ICustomSelectProps {
 
 const CustomSelect: React.FC<ICustomSelectProps> = ({ label, ...props }) => {
     const [field, meta] = useField(props);
-    // const options: any[] = []
-    // switch (props.name) {
-    //     case 'room'
-    // }
 
     return (
         <div className={'grid grid-cols-1 gap-[5px]'}>
