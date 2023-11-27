@@ -3,6 +3,7 @@ import {Form, Formik, FormikContextType, useFormikContext} from "formik";
 import CustomInput from "./customInput";
 import CustomButton from "./CustomButton";
 import CustomSelect from "./customSelect";
+import TimeRangePicker from "../date/timeRangePicker";
 
 interface ICustomFormProps {
     formName: string
@@ -18,7 +19,14 @@ interface ICustomFormProps {
     },
     selectOptions: {
         [key: string]: { label: string; value: string }[];
-    };
+    },
+    // TEST SOLUTION! v0.0.1
+    rangeTimeDate?: {
+        dateTime: {
+            start_datetime: Date,
+            end_datetime: Date
+        }
+    }
     formClass?: string
     onSubmit: (values: any, formikHelpers: any) => void;
 }
@@ -32,7 +40,8 @@ const CustomForm: React.FC<ICustomFormProps> =
         internalizationValues,
         formClass,
         type,
-        selectOptions
+        selectOptions,
+        rangeTimeDate
      }) => {
     return(
         <Formik
@@ -55,6 +64,9 @@ const CustomForm: React.FC<ICustomFormProps> =
                                     }
                                     {
                                         type[name] === 'text' && <CustomInput label={internalizationValues[name]} name={name} />
+                                    }
+                                    {
+                                        type[name] === 'rangeDate' && <TimeRangePicker name={name} date={rangeTimeDate?.dateTime!} />
                                     }
                                 </div>
                             )

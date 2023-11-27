@@ -28,8 +28,6 @@ const ScheduleTime: React.FC = () => {
 
     useEffect(() => {
         if (scheduleSuccess && Array.isArray(schedule) && Array.isArray(rooms)) {
-            console.log(schedule)
-
             setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ILesson) => r.room?.id === item.id)))
         }
     },[scheduleSuccess])

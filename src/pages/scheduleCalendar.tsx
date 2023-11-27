@@ -75,8 +75,10 @@ const MyCalendar: React.FC = () => {
             value: '',
             label: ''
         },
-        start_datetime: '',
-        end_datetime: ''
+        dateTime: {
+            start_datetime: null,
+            end_datetime: null
+        }
     })
 
     const handleSelectSlot = (slotInfo: SlotInfo) => {
@@ -108,8 +110,10 @@ const MyCalendar: React.FC = () => {
                 value: lessonType.id.toString(),
                 label: lessonType.title
             },
-            start_datetime,
-            end_datetime
+            dateTime: {
+                start_datetime,
+                end_datetime
+            }
         })
     }
 
@@ -182,8 +186,7 @@ const MyCalendar: React.FC = () => {
                         room: 'Аудитория',
                         link: 'Ссылка',
                         lessonType: 'Тип урока',
-                        start_datetime: 'Начало',
-                        end_datetime: 'Конец'
+                        dateTime: 'Время'
                     }}
                     type={{
                         id: 'text',
@@ -192,8 +195,7 @@ const MyCalendar: React.FC = () => {
                         room: 'select',
                         link: 'text',
                         lessonType: 'select',
-                        start_datetime: 'text',
-                        end_datetime: 'text'
+                        dateTime: 'rangeDate',
                     }}
                     selectOptions={{
                         discipline: Array.isArray(disciplinesSelector) ? disciplinesSelector.map((discipline: IDiscipline) => ({
@@ -213,6 +215,7 @@ const MyCalendar: React.FC = () => {
                             label: type.title
                         })) : [{value: '0', label: 'Нет типов'}],
                     }}
+                    rangeTimeDate={initialFormikValue.dateTime}
                     schema={calendarFormSchema}
                 />
             </HelperChildComponent>

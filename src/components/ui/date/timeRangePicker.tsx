@@ -1,31 +1,48 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
+import { useFormikContext } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 
 interface TimeRangePickerProps {
-    initialStartDate: Date | null;
-    initialEndDate: Date | null;
-    onDateChange: (startDate: Date | null, endDate: Date | null) => void;
+    name: string,
+    date: {
+        start_datetime: Date,
+        end_datetime: Date
+    }
 }
 
-const TimeRangePicker: React.FC<TimeRangePickerProps> = ({ initialStartDate, initialEndDate, onDateChange }) => {
-    const [startDate, setStartDate] = React.useState<Date | null>(initialStartDate);
-    const [endDate, setEndDate] = React.useState<Date | null>(initialEndDate);
+interface FormValues {
+    [key: string]: {
+        start_datetime: Date | null;
+        end_datetime: Date | null;
+    };
+}
+
+const TimeRangePicker: React.FC<TimeRangePickerProps> = ({name, ...props}) => {
+    const { setFieldValue, values } = useFormikContext<FormValues>();
+    console.log(typeof values.dateTime.start_datetime)
+
+    // Получаем текущие значения дат из Formik
+    const currentStart = new Date(values[name]?.start_datetime!);
+    const currentEnd = new Date(values[name]?.end_datetime!);
 
     const onChange = (dates: [Date | null, Date | null]) => {
-        const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-        onDateChange(start, end);
+        if (Array.isArray(dates)) {
+            const [start, end] = dates;
+            setFieldValue(name, dates ? {start_datetime: start, end_datetime: end} : {start_datetime: null, end_datetime: null});
+            console.log(dates)
+        } else {
+        }
+
+            // Обработ
     };
 
     return (
         <DatePicker
-            selected={startDate}
-            onChange={onChange}
-            startDate={startDate}
-            endDate={endDate}
             selectsRange
+            startDate={currentStart}
+            endDate={currentEnd}
+            onChange={onChange}
             showTimeSelect
             timeFormat="HH:mm"
             timeIntervals={15}
