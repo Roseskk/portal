@@ -20,6 +20,6 @@ export const calendarFormSchema = yup.object().shape({
         value: yup.string(),
         label: yup.string()
     }),
-    start_datetime: yup.date().required('Обязательное поле'),
-    end_datetime: yup.date().required('Обязательное поле')
+    start_datetime: yup.date(),
+    end_datetime: yup.date()
 })

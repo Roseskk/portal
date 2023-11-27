@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 const HelperChildComponent = ({children, ...props} : {children: React.ReactNode, customClasses?: string, displayValue: boolean, handleOut: () => void}) =>  {
     return(
@@ -9,4 +9,4 @@ const HelperChildComponent = ({children, ...props} : {children: React.ReactNode,
     )
 };
 
-export default HelperChildComponent;
+export default memo(HelperChildComponent);

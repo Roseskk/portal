@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Calendar, momentLocalizer, SlotInfo, View} from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import moment from 'moment';
 import 'moment/locale/ru';
 import {useParams} from "react-router-dom";
-import {useGetScheduleByIdQuery} from "../redux/api/schedule";
+import {useGetScheduleByIdQuery, useUpdateScheduleByIdMutation} from "../redux/api/schedule";
 import {ILesson} from "../types/scheduleTypes";
 import {convertISOToDate} from "../utility/transformers";
 import CustomForm from "../components/ui/form/customForm";
@@ -17,7 +17,6 @@ import {RootState} from "../redux/store";
 import {IRoom} from "../types/roomTypes";
 import {ITeacher} from "../types/teacherTypes";
 import {IDiscipline} from "../types/disciplinesType";
-import {FormikContextType, useFormikContext} from "formik";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -46,6 +45,7 @@ const messages = {
 const MyCalendar: React.FC = () => {
     const {id}  = useParams()
     const {data, isLoading, isSuccess, isError} = useGetScheduleByIdQuery(id!)
+    const [updateLesson, {isSuccess: updateLessonSuccess}] = useUpdateScheduleByIdMutation()
 
     const roomsSelector = useSelector((state: RootState) => state.roomReducer.rooms)
     const lessonTypesSelector = useSelector((state: RootState) => state.lessonReducer.types)
@@ -135,7 +135,7 @@ const MyCalendar: React.FC = () => {
             })
             setEvents(mappedData)
         }
-    }, [isSuccess]);
+    }, [isSuccess, updateLessonSuccess]);
 
     const onEventDrop = ({ event, start, end }: any) => {
         const updatedEvents = events.map((e) =>
@@ -144,9 +144,21 @@ const MyCalendar: React.FC = () => {
         setEvents(updatedEvents);
     };
 
-    const handleRecordForm = (values: { [key: string]: any }, setSubmitting: (isSubmitting: boolean) => void) => {
-        console.log('submit');
-        setSubmitting(false)
+    const handleRecordForm = (
+        values: { [key: string]: any },
+        setSubmitting: (isSubmitting: boolean) => void
+    ) => {
+        const mappedData = {
+            ...values.dateTime,
+            discipline: values.discipline.value,
+            link: values.link,
+            lessonType: values.lessonType.value,
+            room: values.room.value,
+            teacher: values.teacher.value
+        };
+        updateLesson({ id: values.id, ...mappedData });
+        setSubmitting(false);
+        setOpen(false);
     }
 
     if (isLoading) {

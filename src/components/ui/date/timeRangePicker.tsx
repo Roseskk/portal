@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 interface TimeRangePickerProps {
     name: string,
+    label: string,
     date: {
         start_datetime: Date,
         end_datetime: Date
@@ -20,35 +21,43 @@ interface FormValues {
 
 const TimeRangePicker: React.FC<TimeRangePickerProps> = ({name, ...props}) => {
     const { setFieldValue, values } = useFormikContext<FormValues>();
-    console.log(typeof values.dateTime.start_datetime)
 
-    // Получаем текущие значения дат из Formik
-    const currentStart = new Date(values[name]?.start_datetime!);
-    const currentEnd = new Date(values[name]?.end_datetime!);
+    const currentStart = new Date(values[name]?.start_datetime!) || new Date();
+    const currentEnd = new Date(values[name]?.end_datetime!) || new Date();
 
-    const onChange = (dates: [Date | null, Date | null]) => {
-        if (Array.isArray(dates)) {
-            const [start, end] = dates;
-            setFieldValue(name, dates ? {start_datetime: start, end_datetime: end} : {start_datetime: null, end_datetime: null});
-            console.log(dates)
-        } else {
-        }
-
-            // Обработ
+    const handleTimeChange = (time: Date | null, fieldName: 'start_datetime' | 'end_datetime') => {
+        setFieldValue(`${name}.${fieldName}`, time);
     };
 
     return (
-        <DatePicker
-            selectsRange
-            startDate={currentStart}
-            endDate={currentEnd}
-            onChange={onChange}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            timeCaption="Время"
-            dateFormat="HH:mm"
-        />
+        <div className={'flex items-center gap-[20px]'}>
+            <div className={'w-[200px]'}>
+                <pre>Начало</pre>
+                <DatePicker
+                    className={'rounded p-2 text-center font-bold'}
+                    selected={currentStart}
+                    onChange={(time) => handleTimeChange(time, 'start_datetime')}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Начало"
+                    dateFormat="HH:mm"
+                />
+            </div>
+            <div className={'w-[200px]'}>
+                <pre>Конец</pre>
+                <DatePicker
+                    className={'rounded p-2 text-center font-bold'}
+                    selected={currentEnd}
+                    onChange={(time) => handleTimeChange(time, 'end_datetime')}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Конец"
+                    dateFormat="HH:mm"
+                />
+            </div>
+        </div>
     );
 };
 
