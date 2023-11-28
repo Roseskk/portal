@@ -134,6 +134,7 @@ const MyCalendar: React.FC = () => {
                 }
             })
             setEvents(mappedData)
+            console.log(data)
         }
     }, [isSuccess, updateLessonSuccess]);
 
@@ -167,6 +168,7 @@ const MyCalendar: React.FC = () => {
 
     return (
         <div className={'h-[500px] mt-[25px]'}>
+            <h2 className={'text-center font-bold text-lg sm:text-2xl'}>{Array.isArray(data) ? data[0].schedule.title : 'N/A'}</h2>
             <DragAndDropCalendar
                 view={view as View}
                 onView={(newView) => setView(newView)}

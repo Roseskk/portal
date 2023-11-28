@@ -44,7 +44,6 @@ const CustomForm: React.FC<ICustomFormProps> =
         selectOptions,
         rangeTimeDate
      }) => {
-    console.log('Рендер')
     return(
         <Formik
             initialValues={initialValues}

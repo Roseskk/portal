@@ -2,6 +2,8 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import { useFormikContext } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ru } from 'date-fns/locale';
+
 
 interface TimeRangePickerProps {
     name: string,
@@ -42,6 +44,7 @@ const TimeRangePicker: React.FC<TimeRangePickerProps> = ({name, ...props}) => {
                     timeIntervals={15}
                     timeCaption="Начало"
                     dateFormat="HH:mm"
+                    locale={ru}
                 />
             </div>
             <div className={'w-[200px]'}>
