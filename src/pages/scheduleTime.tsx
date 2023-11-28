@@ -23,12 +23,13 @@ const ScheduleTime: React.FC = () => {
     // const groups = useSelector((state: RootState) => state.groupReducer.groups)
     const lessonTypes = useSelector((state: RootState) => state.lessonReducer.types)
 
-    const [transformedSchedule, setTransformedSchedule] = useState<ISchedule[]>([])
+    const [transformedSchedule, setTransformedSchedule] = useState<ILesson[]>([])
     const [freeRooms, setFreeRooms] = useState<IRoom[]>([])
 
     useEffect(() => {
         if (scheduleSuccess && Array.isArray(schedule) && Array.isArray(rooms)) {
             setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ILesson) => r.room?.id === item.id)))
+            setTransformedSchedule([...schedule].sort((a, b) => +a.room.title - +b.room.title))
         }
     },[scheduleSuccess])
 
@@ -43,7 +44,7 @@ const ScheduleTime: React.FC = () => {
                         <FreeRooms freeRooms={freeRooms} />
                         <div className={'flex flex-col gap-[10px]'}>
                             <Typography className={'text-center !font-bold'}>Расписание</Typography>
-                            <ScheduleTable schedule={schedule} />
+                            <ScheduleTable schedule={transformedSchedule} />
                         </div>
                     </div>
             }

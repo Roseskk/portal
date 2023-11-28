@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bab0110-da51-4e9b-90e8-d2e618c465c4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/tables/row/tebleBody.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tables/scheduleDesktopTable.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ui/date/timeRangePicker.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/date/timeRangePicker.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ui/form/customForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/form/customForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/helperChildComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/helperChildComponent.tsx" afterDir="false" />
@@ -105,7 +107,7 @@
       <workItem from="1700564663559" duration="2711000" />
       <workItem from="1700567879842" duration="8650000" />
       <workItem from="1700594070100" duration="34084000" />
-      <workItem from="1700936790988" duration="26114000" />
+      <workItem from="1700936790988" duration="32992000" />
     </task>
     <servers />
   </component>
