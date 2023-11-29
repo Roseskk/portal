@@ -29,7 +29,7 @@ const ScheduleTime: React.FC = () => {
     useEffect(() => {
         if (scheduleSuccess && Array.isArray(schedule) && Array.isArray(rooms)) {
             setFreeRooms(rooms.filter((item: IRoom) => !schedule.some((r: ILesson) => r.room?.id === item.id)))
-            setTransformedSchedule([...schedule].sort((a, b) => +a.room.title - +b.room.title))
+            setTransformedSchedule(schedule)
         }
     },[scheduleSuccess])
 

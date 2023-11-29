@@ -134,7 +134,6 @@ const MyCalendar: React.FC = () => {
                 }
             })
             setEvents(mappedData)
-            console.log(data)
         }
     }, [isSuccess, updateLessonSuccess]);
 
