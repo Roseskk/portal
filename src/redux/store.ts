@@ -6,6 +6,8 @@ import {groupApi} from "./api/group";
 import {scheduleApi} from "./api/schedule";
 import {lessonApi} from "./api/lessonType";
 import {roomApi} from "./api/room";
+import {teachersApi} from "./api/teachers";
+import {disciplineApi} from "./api/discipline";
 
 //экшены подключаем
 import itemReducer from './features/items/item';
@@ -15,6 +17,9 @@ import groupReducer from './features/group/groupSlice'
 import scheduleReducer from './features/schedule/scheduleSlice'
 import lessonReducer from './features/lessons/lessonTypes'
 import roomReducer from './features/room/roomSlice'
+import teacherReducer from './features/teachers/teachersSlice'
+import disciplineReducer from './features/discipline/discipline'
+
 
 export const store = configureStore({
     reducer: {
@@ -26,13 +31,17 @@ export const store = configureStore({
         scheduleReducer: scheduleReducer,
         lessonReducer: lessonReducer,
         roomReducer: roomReducer,
+        teacherReducer: teacherReducer,
+        disciplineReducer: disciplineReducer,
         // апи
         [scheduleApi.reducerPath]: scheduleApi.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
         [facultyApi.reducerPath]: facultyApi.reducer,
         [groupApi.reducerPath]: groupApi.reducer,
         [lessonApi.reducerPath]: lessonApi.reducer,
-        [roomApi.reducerPath]: roomApi.reducer
+        [roomApi.reducerPath]: roomApi.reducer,
+        [teachersApi.reducerPath]: teachersApi.reducer,
+        [disciplineApi.reducerPath]: disciplineApi.reducer
     },
     middleware: (getDefaultMiddleware =>
             //мв
@@ -42,7 +51,9 @@ export const store = configureStore({
             groupApi.middleware,
             scheduleApi.middleware,
             lessonApi.middleware,
-            roomApi.middleware
+            roomApi.middleware,
+            teachersApi.middleware,
+            disciplineApi.middleware
         )
     )
 });

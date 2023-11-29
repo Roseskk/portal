@@ -1,14 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Calendar, momentLocalizer, SlotInfo, View} from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css';
 import moment from 'moment';
 import 'moment/locale/ru';
 import {useParams} from "react-router-dom";
-import {useGetScheduleByIdQuery} from "../redux/api/schedule";
-import {ILesson, ILessonData} from "../types/scheduleTypes";
+import {useGetScheduleByIdQuery, useUpdateScheduleByIdMutation} from "../redux/api/schedule";
+import {ILesson} from "../types/scheduleTypes";
 import {convertISOToDate} from "../utility/transformers";
+import CustomForm from "../components/ui/form/customForm";
+import {calendarFormSchema} from "../schemas/calendarFormSchema";
+import HelperChildComponent from "../helpers/helperChildComponent";
+import {useSelector} from "react-redux";
+import {RootState} from "../redux/store";
+import {IRoom} from "../types/roomTypes";
+import {ITeacher} from "../types/teacherTypes";
+import {IDiscipline} from "../types/disciplinesType";
 
 const localizer = momentLocalizer(moment);
 const DragAndDropCalendar = withDragAndDrop(Calendar);
@@ -18,6 +26,10 @@ interface Event {
     title: string;
     start: Date;
     end: Date;
+}
+
+interface IFormikEventProps extends Event {
+    lesson: ILesson
 }
 
 const messages = {
@@ -33,8 +45,78 @@ const messages = {
 const MyCalendar: React.FC = () => {
     const {id}  = useParams()
     const {data, isLoading, isSuccess, isError} = useGetScheduleByIdQuery(id!)
-    // console.log(data)
+    const [updateLesson, {isSuccess: updateLessonSuccess}] = useUpdateScheduleByIdMutation()
+
+    const roomsSelector = useSelector((state: RootState) => state.roomReducer.rooms)
+    const lessonTypesSelector = useSelector((state: RootState) => state.lessonReducer.types)
+    const teachersSelector = useSelector((state: RootState) => state.teacherReducer.teachers)
+    const disciplinesSelector = useSelector((state: RootState) => state.disciplineReducer.disciplines)
+
     const [events, setEvents] = useState<Event[] | []>([]);
+    const [view, setView] = useState('month')
+    const [date, setDate] = useState(new Date())
+    const [isOpen, setOpen] = useState(false)
+    const [initialFormikValue, setInitialFormikValue] = useState<any>({
+        id: '',
+        discipline: {
+            value: '',
+            label: ''
+        },
+        teacher: {
+            value: '',
+            label: ''
+        },
+        room: {
+            value: '',
+            label: ''
+        },
+        link: '',
+        lessonType: {
+            value: '',
+            label: ''
+        },
+        dateTime: {
+            start_datetime: null,
+            end_datetime: null
+        }
+    })
+
+    const handleSelectSlot = (slotInfo: SlotInfo) => {
+        setView('day');
+        setDate(slotInfo.start)
+
+    }
+
+    const handleEventSelect = (event: IFormikEventProps ) => {
+        const {lesson} = event
+        const {id, discipline, teacher, room, link, lessonType, start_datetime, end_datetime } = lesson
+        setOpen(true)
+        setInitialFormikValue({
+            id: id.toString(),
+            discipline: {
+                value: discipline.id.toString(),
+                label: discipline.title
+            },
+            teacher: {
+                value: teacher.id.toString(),
+                label: teacher.first_name
+            },
+            room: {
+                value: room.id.toString(),
+                label: room.title
+            },
+            link,
+            lessonType: {
+                value: lessonType.id.toString(),
+                label: lessonType.title
+            },
+            dateTime: {
+                start_datetime,
+                end_datetime
+            }
+        })
+    }
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -45,12 +127,15 @@ const MyCalendar: React.FC = () => {
                     id: i.id,
                     title: i.discipline.title,
                     start: startDate,
-                    end: endDate
+                    end: endDate,
+                    lesson: {
+                        ...i
+                    }
                 }
             })
             setEvents(mappedData)
         }
-    }, [isSuccess]);
+    }, [isSuccess, updateLessonSuccess]);
 
     const onEventDrop = ({ event, start, end }: any) => {
         const updatedEvents = events.map((e) =>
@@ -59,21 +144,94 @@ const MyCalendar: React.FC = () => {
         setEvents(updatedEvents);
     };
 
+    const handleRecordForm = (
+        values: { [key: string]: any },
+        setSubmitting: (isSubmitting: boolean) => void
+    ) => {
+        const mappedData = {
+            ...values.dateTime,
+            discipline: values.discipline.value,
+            link: values.link,
+            lessonType: values.lessonType.value,
+            room: values.room.value,
+            teacher: values.teacher.value
+        };
+        updateLesson({ id: values.id, ...mappedData });
+        setSubmitting(false);
+        setOpen(false);
+    }
+
     if (isLoading) {
         return <div>Loading....</div>
     }
 
     return (
         <div className={'h-[500px] mt-[25px]'}>
+            <h2 className={'text-center font-bold text-lg sm:text-2xl'}>{Array.isArray(data) ? data[0].schedule.title : 'N/A'}</h2>
             <DragAndDropCalendar
+                view={view as View}
+                onView={(newView) => setView(newView)}
                 localizer={localizer}
                 events={events}
-                defaultDate={new Date()}
+                date={date}
+                onNavigate={(date) => setDate(date)}
                 defaultView="month"
                 onEventDrop={onEventDrop}
                 messages={messages}
                 style={{height: '100vh'}}
+                onSelectSlot={(info) => handleSelectSlot(info)}
+                onSelectEvent={(e) => handleEventSelect(e as IFormikEventProps)}
+                selectable
             />
+            <HelperChildComponent
+                displayValue={isOpen}
+                handleOut={() => setOpen(false)}
+            >
+                <CustomForm
+                    onSubmit={(values, { setSubmitting }) => handleRecordForm(values, setSubmitting)}
+                    formName="Редактирование Записи"
+                    key={initialFormikValue.id || 'new'}
+                    initialValues={initialFormikValue}
+                    internalizationValues={{
+                        id: 'Код',
+                        discipline: 'Дисциплина',
+                        teacher: 'Преподаватель',
+                        room: 'Аудитория',
+                        link: 'Ссылка',
+                        lessonType: 'Тип урока',
+                        dateTime: 'Время'
+                    }}
+                    type={{
+                        id: 'text',
+                        discipline: 'select',
+                        teacher: 'select',
+                        room: 'select',
+                        link: 'text',
+                        lessonType: 'select',
+                        dateTime: 'rangeDate',
+                    }}
+                    selectOptions={{
+                        discipline: Array.isArray(disciplinesSelector) ? disciplinesSelector.map((discipline: IDiscipline) => ({
+                            value: discipline.id.toString(),
+                            label: discipline.title
+                        })) : [{value: '0', label: 'Нет дисциплин'}],
+                        teacher: Array.isArray(teachersSelector) ? teachersSelector.map((teacher: ITeacher) => ({
+                            value: teacher.id.toString(),
+                            label: `${teacher.second_name} ${teacher.first_name} ${teacher.middle_name}`
+                        })) : [{value: '0', label: 'Нет учителей'}],
+                        room: Array.isArray(roomsSelector) ? roomsSelector.map((room: IRoom) => ({
+                            value: room.id.toString(),
+                            label: room.title
+                        })) : [{value: '0', label: 'Нет комнат'}],
+                        lessonType: Array.isArray(lessonTypesSelector) ? lessonTypesSelector.map((type : IRoom) => ({
+                            value: type.id.toString(),
+                            label: type.title
+                        })) : [{value: '0', label: 'Нет типов'}],
+                    }}
+                    rangeTimeDate={initialFormikValue.dateTime}
+                    schema={calendarFormSchema}
+                />
+            </HelperChildComponent>
         </div>
     );
 };
